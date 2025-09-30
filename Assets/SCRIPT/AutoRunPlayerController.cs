@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
@@ -43,7 +43,11 @@ public partial class AutoRunPlayerController : MonoBehaviour
         laneRoot = new GameObject("LaneRoot").transform;
         laneRoot.position = transform.position;
         transform.SetParent(laneRoot);
+
+        // Initialize UI with current values
+        UIManager.Instance.ReduceHealth(0); // refresh health display
     }
+
 
     void Update()
     {
@@ -127,6 +131,7 @@ public partial class AutoRunPlayerController : MonoBehaviour
         if (hit.collider.CompareTag("Wall"))
         {
             currentCollisions++;
+            UIManager.Instance.ReduceHealth(1); // 👈 update UI immediately
 
             if (currentCollisions >= maxCollisions)
             {

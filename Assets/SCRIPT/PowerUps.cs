@@ -21,6 +21,7 @@ public class PickupItems : MonoBehaviour
             {
                 case PickupType.Coin:
                     player.AddScore(100);
+                    UIManager.Instance.AddScore(100); // ?? update UI
                     break;
                 case PickupType.Invulnerability:
                     player.StartCoroutine(player.ActivateInvulnerability(20f));
