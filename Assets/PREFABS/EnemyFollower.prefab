@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   controller: {fileID: 0}
-  forwardSpeed: 12.5
+  forwardSpeed: 25.1
   laneChangeSpeed: 15
   laneOffset: 4.55
   totalLanes: 3

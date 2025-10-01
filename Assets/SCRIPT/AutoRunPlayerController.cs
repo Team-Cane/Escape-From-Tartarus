@@ -57,12 +57,6 @@ public partial class AutoRunPlayerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D))
             ChangeLane(1);
 
-        // Turning
-        if (Input.GetKeyDown(KeyCode.Q))
-            Turn(-90f);
-        else if (Input.GetKeyDown(KeyCode.E))
-            Turn(90f);
-
         // Jump input + gravity
         if (controller.isGrounded)
         {
@@ -115,17 +109,6 @@ public partial class AutoRunPlayerController : MonoBehaviour
         targetLane = Mathf.Clamp(newLane, -half, half);
     }
 
-    void Turn(float angle)
-    {
-        // Rotate laneRoot
-        laneRoot.Rotate(0f, angle, 0f);
-
-        // Ensure player remains in current lane after turn
-        Vector3 localPos = transform.localPosition;
-        localPos.x = targetLane * laneOffset;
-        transform.localPosition = localPos;
-    }
-
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.collider.CompareTag("Wall"))
@@ -156,6 +139,26 @@ public partial class AutoRunPlayerController : MonoBehaviour
             targetLane = randomLane;
 
             // Slow down speed and start recovery
+            currentForwardSpeed = 0f;
+            recoveryTimer = recoveryTime;
+        }
+    }
+
+    public void TakeDamage(int amount, bool applySlowdown = false)
+    {
+        UIManager.Instance.ReduceHealth(amount);
+        currentCollisions += amount;
+
+        if (currentCollisions >= maxCollisions)
+        {
+            // Reset scene if health depleted
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
+        }
+
+        if (applySlowdown)
+        {
+            // Slow player forward speed temporarily
             currentForwardSpeed = 0f;
             recoveryTimer = recoveryTime;
         }
