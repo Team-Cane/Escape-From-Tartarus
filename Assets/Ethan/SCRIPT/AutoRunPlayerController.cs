@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(AnimationManager))]
 public partial class AutoRunPlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -19,12 +21,20 @@ public partial class AutoRunPlayerController : MonoBehaviour
     public float recoveryTime = 1.5f;
 
     [Header("Collision Settings")]
-    [Tooltip("Number of wall collisions allowed before game reset.")]
+    [Tooltip("Number of wall collisions allowed before death/scene reload.")]
     public int maxCollisions = 2;
+
+    [Header("Death / Reload")]
+    [Tooltip("Name of the Animator state that plays the death clip (default: \"Death\").")]
+    public string deathStateName = "Death";
+    [Tooltip("Failsafe timeout (seconds) to reload if animation state can't be detected.")]
+    public float deathReloadTimeout = 10f;
 
     private int currentCollisions = 0;
     private int targetLane = 0;
     private CharacterController controller;
+    private AnimationManager animManager;
+    private Animator animator;
 
     private float verticalVelocity = 0f;
     private float currentForwardSpeed;
@@ -33,9 +43,16 @@ public partial class AutoRunPlayerController : MonoBehaviour
 
     private Transform laneRoot; // Parent that rotates for turns
 
+    // death handling
+    private bool isDying = false;
+    private Coroutine deathCoroutine;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animManager = GetComponent<AnimationManager>();
+        animator = GetComponent<Animator>();
+
         currentForwardSpeed = forwardSpeed;
         targetForwardSpeed = forwardSpeed;
 
@@ -48,9 +65,14 @@ public partial class AutoRunPlayerController : MonoBehaviour
         UIManager.Instance.ReduceHealth(0); // refresh health display
     }
 
-
     void Update()
     {
+        // If we're dying, freeze player control & wait for animation (coroutine handles reload)
+        if (isDying)
+        {
+            return;
+        }
+
         // Lane switching
         if (Input.GetKeyDown(KeyCode.A))
             ChangeLane(-1);
@@ -109,20 +131,13 @@ public partial class AutoRunPlayerController : MonoBehaviour
         targetLane = Mathf.Clamp(newLane, -half, half);
     }
 
+    // Restored: pushback, random lane change, and slowdown happen here (then we call TakeDamage to update health/death)
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        if (isDying) return;
+
         if (hit.collider.CompareTag("Wall"))
         {
-            currentCollisions++;
-            UIManager.Instance.ReduceHealth(1); // 👈 update UI immediately
-
-            if (currentCollisions >= maxCollisions)
-            {
-                // Reset scene on too many collisions
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                return;
-            }
-
             // Push player away from wall so they don't keep colliding
             Vector3 pushBack = hit.normal * 2f; // 2 units away from the wall
             laneRoot.position += new Vector3(pushBack.x, 0, pushBack.z);
@@ -138,30 +153,86 @@ public partial class AutoRunPlayerController : MonoBehaviour
 
             targetLane = randomLane;
 
-            // Slow down speed and start recovery
+            // Slow down speed and start recovery (we apply slowdown here)
             currentForwardSpeed = 0f;
             recoveryTimer = recoveryTime;
+
+            // Apply damage (we pass false so TakeDamage doesn't re-apply slowdown)
+            TakeDamage(1, false);
         }
     }
 
+    /// <summary>
+    /// Applies damage. If collisions reach max -> triggers death animation (waits for full animation before reload).
+    /// </summary>
     public void TakeDamage(int amount, bool applySlowdown = false)
     {
+        if (isDying) return; // ignore damage while dying
+
+        // Update UI & collisions
         UIManager.Instance.ReduceHealth(amount);
         currentCollisions += amount;
 
         if (currentCollisions >= maxCollisions)
         {
-            // Reset scene if health depleted
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Start death flow (play animation and wait for it to finish)
+            StartDeathSequence();
             return;
         }
 
         if (applySlowdown)
         {
-            // Slow player forward speed temporarily
             currentForwardSpeed = 0f;
             recoveryTimer = recoveryTime;
         }
     }
 
+    private void StartDeathSequence()
+    {
+        if (isDying) return;
+        isDying = true;
+
+        // stop movement immediately
+        currentForwardSpeed = 0f;
+        recoveryTimer = 0f;
+
+        // Trigger death on animator via AnimationManager
+        if (animManager != null)
+        {
+            animManager.PlayDeathAnimation();
+        }
+
+        // Start coroutine to wait until animation completes (or fallback timeout)
+        if (deathCoroutine != null) StopCoroutine(deathCoroutine);
+        deathCoroutine = StartCoroutine(WaitForDeathAndReload());
+    }
+
+    private IEnumerator WaitForDeathAndReload()
+    {
+        float timer = 0f;
+
+        // Wait until animator reaches the named death state and finishes playback,
+        // or until deathReloadTimeout is exceeded (failsafe)
+        while (timer < deathReloadTimeout)
+        {
+            if (animator != null)
+            {
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                if (stateInfo.IsName(deathStateName) && stateInfo.normalizedTime >= 1f)
+                {
+                    break; // finished the death clip
+                }
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        ReloadScene();
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
