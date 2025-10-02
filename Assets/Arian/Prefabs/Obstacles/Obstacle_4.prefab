@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6450369860793028593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8343565150916793850}
+  - component: {fileID: 4955129501984448372}
+  m_Layer: 0
+  m_Name: Obstacle_4
+  m_TagString: Wall
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8343565150916793850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450369860793028593}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.034029, y: 0.02, z: -18.147}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1553857132746001392}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4955129501984448372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450369860793028593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfaf020ab6f86743b259f4048aa30f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laneWidth: 2
+  allowLeft: 0
+  allowMiddle: 0
+  allowRight: 0
+  allowLeftMiddle: 1
+  allowMiddleRight: 1
+--- !u!1001 &1517935645635631007
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8343565150916793850}
+    m_Modifications:
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.674028
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5742066
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.3930016
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071069
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298109019977827091, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+      propertyPath: m_Name
+      value: Obstacle4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+--- !u!4 &1553857132746001392 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 36207713462230127, guid: c50491a0a1383cb49b6662009e14e224, type: 3}
+  m_PrefabInstance: {fileID: 1517935645635631007}
+  m_PrefabAsset: {fileID: 0}

@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8813387435063046937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1562467646082360114}
+  - component: {fileID: 1957104119581356223}
+  m_Layer: 0
+  m_Name: Obstacle_10
+  m_TagString: Wall
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1562467646082360114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813387435063046937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.2, y: 0, z: -26.467}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6437438804646563331}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1957104119581356223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813387435063046937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfaf020ab6f86743b259f4048aa30f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laneWidth: 1
+  allowLeft: 0
+  allowMiddle: 0
+  allowRight: 1
+  allowLeftMiddle: 0
+  allowMiddleRight: 0
+--- !u!1001 &5874333094741647840
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1562467646082360114}
+    m_Modifications:
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.000452
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.1755767
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.4769993
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149939541594111893, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_Name
+      value: Obstacle10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149939541594111893, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+--- !u!4 &6437438804646563331 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 636048437651156963, guid: f05a3935ce776d14aae4de143742d044, type: 3}
+  m_PrefabInstance: {fileID: 5874333094741647840}
+  m_PrefabAsset: {fileID: 0}
